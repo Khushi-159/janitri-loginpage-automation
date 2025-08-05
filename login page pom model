@@ -1,0 +1,13 @@
+janitri_login_automation/
+│
+├── requirements.txt
+├── pytest.ini
+├── README.md
+│
+├── pages/
+│   └── login_page.py
+│
+├── tests/
+│   └── test_login.py
+│
+└── conftest.py  (for setup/teardown)
