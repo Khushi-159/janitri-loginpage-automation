@@ -1,0 +1,30 @@
+import time
+from pages.login_page import LoginPage
+
+def test_login_button_disabled_when_fields_empty(setup):
+    login = LoginPage(setup)
+    assert not login.is_login_enabled()
+
+def test_password_field_is_masked(setup):
+    login = LoginPage(setup)
+    login.enter_password("test123")
+    assert login.get_password_type() == "password"
+
+def test_password_toggle_unmasks_password(setup):
+    login = LoginPage(setup)
+    login.enter_password("test123")
+    login.click_eye_icon()
+    time.sleep(1)
+    assert login.get_password_type() == "text"
+
+def test_invalid_credentials_show_error(setup):
+    login = LoginPage(setup)
+    login.enter_email("invalid@user.com")
+    login.enter_password("wrongpass")
+    login.click_login()
+    time.sleep(2)
+    assert "Invalid" in login.get_error_text()
+
+def test_all_elements_present(setup):
+    login = LoginPage(setup)
+    assert login.are_elements_visible()
